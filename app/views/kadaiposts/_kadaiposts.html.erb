@@ -1,0 +1,23 @@
+<ul class="media-list">
+  <% kadaiposts.each do |kadaipost| %>
+    <li class="media">
+      <div class="media-left">
+        <img class="media-object img-rounded" src="<%= gravatar_url(kadaipost.user, { size: 50 }) %>" alt="">
+      </div>
+      <div class="media-body">
+        <div>
+          <%= link_to kadaipost.user.name, user_path(kadaipost.user) %> <span class="text-muted">posted at <%= kadaipost.created_at %></span>
+        </div>
+        <div>
+          <p><%= kadaipost.content %></p>
+        </div>
+        <div>
+          <% if current_user == kadaipost.user %>
+            <%= link_to "Delete", kadaipost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-xs' %>
+          <% end %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate kadaiposts %>
+</ul>
